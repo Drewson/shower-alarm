@@ -1,0 +1,36 @@
+{
+  "name": "shower-alarm",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "react-native-scripts": "0.0.40",
+    "jest-expo": "~18.0.0",
+    "react-test-renderer": "16.0.0-alpha.12"
+  },
+  "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
+  "scripts": {
+    "start": "react-native-scripts start",
+    "eject": "react-native-scripts eject",
+    "android": "react-native-scripts android",
+    "ios": "react-native-scripts ios",
+    "test": "node node_modules/jest/bin/jest.js --watch"
+  },
+  "jest": {
+    "preset": "jest-expo"
+  },
+  "dependencies": {
+    "@expo/ex-navigation": "^3.0.0",
+    "@google-cloud/vision": "^0.11.3",
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.3",
+    "expo": "^18.0.3",
+    "express": "^4.15.3",
+    "google-cloud": "^0.55.0",
+    "moment": "^2.18.1",
+    "react": "16.0.0-alpha.12",
+    "react-native": "^0.45.1",
+    "react-native-camera": "git+https://github.com/lwansbrough/react-native-camera.git",
+    "react-native-image-picker": "^0.26.3",
+    "react-navigation": "^1.0.0-beta.11"
+  }
+}
