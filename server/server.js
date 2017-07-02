@@ -44,25 +44,11 @@ app.post('/', (req, res) => {
   rp(options)
       .then(function (parsedBody) {
           console.log(util.inspect(parsedBody, false, null))
-
-          res.send(parsedBody);
+          res.status(200).json(parsedBody);
       })
       .catch(function (err) {
           console.log(err);
       });
-
-  // vision.detectLabels(req.body)
-  // .then((results) => {
-  //   console.log('3')
-  //   const labels = results[0];
-  //   if(labels.includes('shower')){
-  //     res.send(labels)
-  //   }
-  // })
-  // .catch((err) => {
-  //   console.error('ERROR:', err);
-  // });
-
 })
 
 app.listen(3000, () => {

@@ -61,6 +61,7 @@ class Alarm extends Component {
   }
 
   render(){
+    console.log(this.props)
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.alarm} >

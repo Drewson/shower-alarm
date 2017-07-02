@@ -27,5 +27,15 @@ export const styles = StyleSheet.create({
     color: 'white',
     position: 'relative',
     textAlign: 'center',
+  },
+  noShower: {
+    marginTop: 30,
+    width: 250,
+    borderRadius: 3,
+    elevation: 2,
+    shadowColor: 'rgba(0,0,0,1)',
+    shadowOpacity: 0.2,
+    shadowOffset: {width: 4, height: 4},
+    shadowRadius: 5,
   }
 });

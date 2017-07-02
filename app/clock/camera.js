@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import {
   ActivityIndicator,
   Button,
-  Clipboard,
   Image,
-  Share,
   StatusBar,
   StyleSheet,
   Text,
@@ -17,121 +15,31 @@ import Exponent, {
   registerRootComponent,
 } from 'expo';
 
-export default class CameraRoute extends Component {
-  state = {
-    image: null,
-    uploading: false,
-  }
+import { styles } from './styles';
 
-  render() {
-    let { image } = this.state;
+export default class Camera extends Component {
 
-    return (
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-        <Text style={{fontSize: 20, marginBottom: 20, textAlign: 'center', marginHorizontal: 15}}>
-          Example: Upload ImagePicker result
-        </Text>
-
-        <Button
-          onPress={this._pickImage}
-          title="Pick an image from camera roll"
-        />
-
-        <Button
-          onPress={this._takePhoto}
-          title="Take a photo"
-        />
-
-        { this._maybeRenderImage() }
-        { this._maybeRenderUploadingOverlay() }
-
-        <StatusBar barStyle="default" />
-      </View>
-    );
-  }
-
-  _maybeRenderUploadingOverlay = () => {
-    if (this.state.uploading) {
-      return (
-        <View style={[StyleSheet.absoluteFill, {backgroundColor: 'rgba(0,0,0,0.4)', alignItems: 'center', justifyContent: 'center'}]}>
-          <ActivityIndicator
-            color="#fff"
-            animating
-            size="large"
-          />
-        </View>
-      );
+  constructor(){
+    super()
+    this.state = {
+      image: null,
+      uploading: false,
+      labels: [],
     }
   }
 
-  _maybeRenderImage = () => {
-    let { image } = this.state;
-    if (!image) {
-      return;
-    }
+  static navigationOptions = {
+    title: 'Camera',
+  };
 
-    return (
-      <View style={{
-        marginTop: 30,
-        width: 250,
-        borderRadius: 3,
-        elevation: 2,
-        shadowColor: 'rgba(0,0,0,1)',
-        shadowOpacity: 0.2,
-        shadowOffset: {width: 4, height: 4},
-        shadowRadius: 5,
-      }}>
-        <View style={{borderTopRightRadius: 3, borderTopLeftRadius: 3, overflow: 'hidden'}}>
-          <Image
-            source={{uri: image}}
-            style={{width: 250, height: 250}}
-          />
-        </View>
+  takePhoto = async () => {
 
-        <Text
-          onPress={this._copyToClipboard}
-          onLongPress={this._share}
-          style={{paddingVertical: 10, paddingHorizontal: 10}}>
-          {image}
-        </Text>
-      </View>
-    );
-  }
-
-  _share = () => {
-    Share.share({
-      message: this.state.image,
-      title: 'Check out this photo',
-      url: this.state.image,
-    });
-  }
-
-  _copyToClipboard = () => {
-    Clipboard.setString(this.state.image);
-    alert('Copied image URL to clipboard');
-  }
-
-  _takePhoto = async () => {
     let pickerResult = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
       aspect: [4,3],
       base64: true
     });
 
-    this._handleImagePicked(pickerResult);
-  }
-
-  _pickImage = async () => {
-    let pickerResult = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
-      aspect: [4,3],
-      base64: true
-    });
-
-    this._handleImagePicked(pickerResult);
-  }
-
-  _handleImagePicked = async (pickerResult) => {
     let uploadResponse, uploadResult;
 
     try {
@@ -140,22 +48,75 @@ export default class CameraRoute extends Component {
       if (!pickerResult.cancelled) {
         uploadResponse = await uploadImageAsync(pickerResult.base64);
         uploadResult = await uploadResponse.json();
-        this.setState({image: uploadResult.location});
+        console.log(uploadResult)
+        let labels = uploadResult
+          .responses[0]
+          .labelAnnotations
+          .map( l => l.description)
+        console.log(labels)
+        this.setState({image: uploadResult.location, labels: labels});
       }
     } catch(e) {
       console.log({uploadResponse});
       console.log({uploadResult});
       console.log({e});
-      alert('Upload failed, sorry :(');
+      alert('Upload failed');
     } finally {
       this.setState({uploading: false});
     }
+  }
+
+  render() {
+    console.log(this.props)
+    const { navigate } = this.props.navigation;
+
+    return (
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+
+        <Text style={{fontSize: 20, marginBottom: 20, textAlign: 'center', marginHorizontal: 15}}>
+          {this.state.labels.join(", ")}
+        </Text>
+
+        <Button
+          onPress={this.takePhoto}
+          title="Take a photo"
+        />
+        {
+          this.state.labels.includes('shower') && navigate('Alarm')
+        }
+        {
+          this.state.image != null &&
+          <View style={styles.noShower}>
+            <View style={{borderTopRightRadius: 3, borderTopLeftRadius: 3, overflow: 'hidden'}}>
+              <Image
+                source={{uri: image}}
+                style={{width: 250, height: 250}}
+              />
+            </View>
+            <Text>{this.state.labels}</Text>
+          </View>
+        }
+
+        {
+          this.state.uploading === true &&
+            <View style={[StyleSheet.absoluteFill, {backgroundColor: 'rgba(0,0,0,0.4)', alignItems: 'center', justifyContent: 'center'}]}>
+            <ActivityIndicator
+              color="#fff"
+              animating
+              size="large"
+            />
+          </View>
+        }
+
+        <StatusBar barStyle="default" />
+      </View>
+    );
   }
 }
 
 async function uploadImageAsync(img) {
   if (Constants.isDevice) {
-    apiUrl = `http://0a58ba93.ngrok.io/`;
+    apiUrl = `http://9f123ab5.ngrok.io`;
   } else {
     apiUrl = `http://localhost:3000/`
   }
