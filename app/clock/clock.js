@@ -48,33 +48,18 @@ class Clock extends Component {
         if(this.state.second == this.state.alarmTime.second){
           if(this.state.meridiem == this.state.alarmTime.meridiem){
             this.setState({ triggered: true })
+            const { navigate } = this.props.navigation;
+            navigate('Camera', { navigation: this.props.navigation})
           }
         }
       }
     }
   }
 
-  turnOff(){
-    //Post then call this fetch from within?
-    fetch('http://localhost:3000/')
-      .then(response => {
-        return response.json()
-      })
-      .then( json => {
-        if(json.includes('shower')){
-          console.log('It includes a shower.');
-          this.setState({ triggered: false })
-        }
-      })
-  }
-
   render(){
     return (
       <View style={styles.clockContainer} >
-        {
-
-          <CameraRoute />
-        }
+        <Text style={styles.time} >{this.state.time}</Text>
       </View>
     )
   }

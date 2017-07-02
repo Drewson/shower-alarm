@@ -9,6 +9,9 @@ const App = StackNavigator({
   Alarm: { screen: Alarm },
   Clock: { screen: Clock },
   Camera: { screen: Camera },
+}, {
+  initialRouteName: 'Alarm',
+  headerMode: 'screen'
 });
 
 export default App;

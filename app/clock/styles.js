@@ -13,6 +13,15 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'black'
+  },
+  turnOff: {
+    fontSize: 32,
+    color: 'white'
+  },
+  time: {
+    fontSize: 42,
+    color: 'white'
   },
   triggerWarning: {
     position: 'absolute',
@@ -37,5 +46,26 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowOffset: {width: 4, height: 4},
     shadowRadius: 5,
+  },
+  labels: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    backgroundColor: 'black'
+  },
+  labelsText: {
+    fontSize: 20,
+    color: 'white'
+  },
+  takePic: {
+
+  },
+  takeText: {
+    textAlign: 'center',
+    fontSize: 28,
+    color: 'white',
+    borderWidth: 2,
+    borderColor: 'white'
   }
 });

@@ -1,12 +1,12 @@
 import React from 'react';
-import { Text, View, Button } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 
 import { styles } from './styles'
 
 const TimeEdit = (props) => {
   return (
     <View style={styles.time} >
-      <Button title='+' onPress={() => props.increase(props.name)} />
+      <TouchableOpacity style={styles.increment} onPress={() => props.increase(props.name)} />
         {
           (props.name === 'minute' && props.time < 10)
           ?
@@ -14,7 +14,7 @@ const TimeEdit = (props) => {
           :
           <Text style={styles.timeNumber} >{props.time}</Text>
         }
-      <Button title='-' onPress={() => props.decrease(props.name)} />
+      <TouchableOpacity style={styles.increment} onPress={() => props.decrease(props.name)} />
     </View>
   )
 }

@@ -22,7 +22,8 @@ class Alarm extends Component {
 
   static navigationOptions = {
     title: 'Set Alarm',
-  };
+    header: null
+  }
 
   increaseHour(){
     if(this.state.hour >= 12){
@@ -61,7 +62,6 @@ class Alarm extends Component {
   }
 
   render(){
-    console.log(this.props)
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.alarm} >
@@ -79,22 +79,23 @@ class Alarm extends Component {
             decrease={this.decrease}
           />
           <TouchableOpacity onPress={() => this.amPm()} >
-            <Text>{this.state.meridiem}</Text>
+            <Text style={styles.meridiem} >{this.state.meridiem}</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.setAlarm} >
-          <Button
-            onPress={() => navigate('Clock', {
-              alarmTime: {
-                minute: this.state.minute,
-                hour: this.state.hour,
-                second: this.state.second,
-                meridiem: this.state.meridiem
-              }
-            })}
-            title="Set Alarm"
-          />
-        </View>
+        <TouchableOpacity
+          onPress={() => navigate('Clock', {
+            alarmTime: {
+              minute: this.state.minute,
+              hour: this.state.hour,
+              second: this.state.second,
+              meridiem: this.state.meridiem
+            },
+            navigation: this.props.navigation
+          })}
+          style={styles.setAlarm}
+        >
+          <Text style={styles.setAlarmText}>Set Alarm</Text>
+        </TouchableOpacity>
       </View>
     )
   }

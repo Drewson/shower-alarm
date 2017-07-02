@@ -3,11 +3,11 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   alarm: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
+    backgroundColor: 'black'
   },
   alarmTime: {
-    flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -15,13 +15,33 @@ export const styles = StyleSheet.create({
   time: {
     padding: 10,
     margin: 5,
-    alignItems: 'center'
+    alignItems: 'center',
   },
-  timeNumber: {
+  meridiem: {
+    color: 'white',
     fontSize: 50
   },
+  timeNumber: {
+    fontSize: 80,
+    color: 'white'
+  },
   setAlarm: {
-    flex: 1,
-    alignSelf: 'stretch'
+    backgroundColor: 'white',
+    height: 50,
+    padding: 10,
+    width: 150,
+    borderRadius: 25,
+    margin: 20,
+  },
+  setAlarmText: {
+    fontSize: 20,
+    textAlign: 'center'
+  },
+  increment: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    height: 20,
+    width: 50,
+    padding: 20
   }
 });

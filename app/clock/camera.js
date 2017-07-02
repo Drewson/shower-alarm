@@ -30,7 +30,8 @@ export default class Camera extends Component {
 
   static navigationOptions = {
     title: 'Camera',
-  };
+    header: null
+  }
 
   takePhoto = async () => {
 
@@ -53,8 +54,11 @@ export default class Camera extends Component {
           .responses[0]
           .labelAnnotations
           .map( l => l.description)
-        console.log(labels)
-        this.setState({image: uploadResult.location, labels: labels});
+        this.setState({image: uploadResult.location, labels: labels });
+        if(labels.includes('shower')){
+          const { navigate } = this.props.navigation;
+          navigate('Alarm');
+        }
       }
     } catch(e) {
       console.log({uploadResponse});
@@ -67,23 +71,19 @@ export default class Camera extends Component {
   }
 
   render() {
-    console.log(this.props)
-    const { navigate } = this.props.navigation;
-
     return (
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <View style={styles.labels}>
 
-        <Text style={{fontSize: 20, marginBottom: 20, textAlign: 'center', marginHorizontal: 15}}>
+        <Text style={styles.labelsText}>
           {this.state.labels.join(", ")}
         </Text>
 
-        <Button
+        <TouchableOpacity
           onPress={this.takePhoto}
-          title="Take a photo"
-        />
-        {
-          this.state.labels.includes('shower') && navigate('Alarm')
-        }
+          style={styles.takePic}
+        >
+          <Text style={styles.takeText}>Take a shower pic</Text>
+        </TouchableOpacity>
         {
           this.state.image != null &&
           <View style={styles.noShower}>
@@ -96,7 +96,6 @@ export default class Camera extends Component {
             <Text>{this.state.labels}</Text>
           </View>
         }
-
         {
           this.state.uploading === true &&
             <View style={[StyleSheet.absoluteFill, {backgroundColor: 'rgba(0,0,0,0.4)', alignItems: 'center', justifyContent: 'center'}]}>
