@@ -114,7 +114,8 @@ export default class CameraRoute extends Component {
   _takePhoto = async () => {
     let pickerResult = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
-      aspect: [4,3]
+      aspect: [4,3],
+      base64: true
     });
 
     this._handleImagePicked(pickerResult);
@@ -152,17 +153,16 @@ export default class CameraRoute extends Component {
   }
 }
 
-async function uploadImageAsync(base64) {
-
+async function uploadImageAsync(img) {
   if (Constants.isDevice) {
-    apiUrl = `https://8e31bd57.ngrok.io`;
+    apiUrl = `http://0a58ba93.ngrok.io/`;
   } else {
     apiUrl = `http://localhost:3000/`
   }
 
   let options = {
     method: 'POST',
-    body: base64,
+    body: img,
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'text/html',
