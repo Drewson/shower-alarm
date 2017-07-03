@@ -20,8 +20,12 @@ export const styles = StyleSheet.create({
     color: 'white'
   },
   time: {
-    fontSize: 42,
-    color: 'white'
+    fontSize: 60,
+    fontWeight: '200',
+    color: 'white',
+    borderWidth: 2,
+    padding: 20,
+    borderColor: 'white'
   },
   triggerWarning: {
     position: 'absolute',
@@ -62,10 +66,12 @@ export const styles = StyleSheet.create({
 
   },
   takeText: {
+    fontWeight: '200',
     textAlign: 'center',
     fontSize: 28,
     color: 'white',
     borderWidth: 2,
+    padding: 20,
     borderColor: 'white'
   }
 });

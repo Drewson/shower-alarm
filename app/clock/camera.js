@@ -33,6 +33,14 @@ export default class Camera extends Component {
     header: null
   }
 
+  componentDidMount(){
+    playAlarm(true);
+  }
+
+  componentWillUnmount(){
+    playAlarm(false);
+  }
+
   takePhoto = async () => {
 
     let pickerResult = await ImagePicker.launchCameraAsync({
@@ -74,28 +82,17 @@ export default class Camera extends Component {
     return (
       <View style={styles.labels}>
 
-        <Text style={styles.labelsText}>
-          {this.state.labels.join(", ")}
-        </Text>
-
         <TouchableOpacity
           onPress={this.takePhoto}
           style={styles.takePic}
         >
-          <Text style={styles.takeText}>Take a shower pic</Text>
+          {
+            this.state.labels.length > 0 ?
+            <Text style={styles.takeText}>That is not a shower!{this.state.labels.join(', ')}</Text>
+            :
+            <Text style={styles.takeText}>Take a shower pic</Text>
+          }
         </TouchableOpacity>
-        {
-          this.state.image != null &&
-          <View style={styles.noShower}>
-            <View style={{borderTopRightRadius: 3, borderTopLeftRadius: 3, overflow: 'hidden'}}>
-              <Image
-                source={{uri: image}}
-                style={{width: 250, height: 250}}
-              />
-            </View>
-            <Text>{this.state.labels}</Text>
-          </View>
-        }
         {
           this.state.uploading === true &&
             <View style={[StyleSheet.absoluteFill, {backgroundColor: 'rgba(0,0,0,0.4)', alignItems: 'center', justifyContent: 'center'}]}>
@@ -106,16 +103,29 @@ export default class Camera extends Component {
             />
           </View>
         }
-
         <StatusBar barStyle="default" />
       </View>
     );
   }
 }
 
+async function playAlarm(bool){
+  const soundObject = new Expo.Audio.Sound();
+  if(bool){
+    try {
+    await soundObject.loadAsync(require('../../alarm.mp3'));
+    await soundObject.playAsync();
+    } catch (error) {
+      console.lg('audio broken')
+    }
+  } else {
+    soundObject.stopAsync()
+  }
+}
+
 async function uploadImageAsync(img) {
   if (Constants.isDevice) {
-    apiUrl = `http://9f123ab5.ngrok.io`;
+    apiUrl = `http://ae68601b.ngrok.io`;
   } else {
     apiUrl = `http://localhost:3000/`
   }

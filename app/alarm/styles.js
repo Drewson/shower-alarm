@@ -23,25 +23,29 @@ export const styles = StyleSheet.create({
   },
   timeNumber: {
     fontSize: 80,
-    color: 'white'
+    color: 'white',
+    fontWeight: '200'
   },
   setAlarm: {
-    backgroundColor: 'white',
-    height: 50,
-    padding: 10,
-    width: 150,
-    borderRadius: 25,
-    margin: 20,
+
   },
   setAlarmText: {
-    fontSize: 20,
+    fontSize: 32,
+    fontWeight: '200',
+    color: 'white',
+    padding: 10,
+    borderWidth: 2,
+    borderColor: 'white',
     textAlign: 'center'
   },
   increment: {
-    backgroundColor: 'white',
     borderRadius: 10,
-    height: 20,
-    width: 50,
-    padding: 20
+    padding: 30,
+    paddingBottom: 5,
+  },
+  decrement: {
+    borderRadius: 10,
+    padding: 30,
+    paddingTop: 5,
   }
 });

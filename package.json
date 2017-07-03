@@ -32,6 +32,8 @@
     "react-native": "^0.45.1",
     "react-native-camera": "git+https://github.com/lwansbrough/react-native-camera.git",
     "react-native-image-picker": "^0.26.3",
+    "react-native-sound": "^0.10.3",
+    "react-native-vector-icons": "^4.2.0",
     "react-navigation": "^1.0.0-beta.11",
     "request": "^2.81.0",
     "request-promise": "^4.2.1"

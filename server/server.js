@@ -1,5 +1,5 @@
 const express = require('express');
-const cors = require('cors')
+const cors = require('cors');
 var bodyParser = require('body-parser')
 var base64 = require('node-base64-image');
 var http = require('http');
