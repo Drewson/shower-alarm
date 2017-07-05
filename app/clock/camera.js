@@ -8,6 +8,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  LayoutAnimation
 } from 'react-native';
 import Exponent, {
   Constants,
@@ -25,6 +26,7 @@ export default class Camera extends Component {
       image: null,
       uploading: false,
       labels: [],
+      picText: 'Take a shower pic!'
     }
   }
 
@@ -68,6 +70,7 @@ export default class Camera extends Component {
           navigate('Alarm');
         }
       }
+
     } catch(e) {
       console.log({uploadResponse});
       console.log({uploadResult});
@@ -75,6 +78,15 @@ export default class Camera extends Component {
       alert('Upload failed');
     } finally {
       this.setState({uploading: false});
+      this.setState({ picText: "That's no shower!" })
+      setTimeout(() => {
+        LayoutAnimation.easeInEaseOut();
+        this.setState({ picText: "This is what I saw: " + this.state.labels.join(', ') })
+        setTimeout(() => {
+          LayoutAnimation.easeInEaseOut();
+          this.setState({ picText: "Take a shower pic!" })
+        }, 5000)
+      }, 2000)
     }
   }
 
@@ -86,12 +98,7 @@ export default class Camera extends Component {
           onPress={this.takePhoto}
           style={styles.takePic}
         >
-          {
-            this.state.labels.length > 0 ?
-            <Text style={styles.takeText}>That is not a shower!{this.state.labels.join(', ')}</Text>
-            :
-            <Text style={styles.takeText}>Take a shower pic</Text>
-          }
+          <Text style={styles.takeText}>{this.state.picText}</Text>
         </TouchableOpacity>
         {
           this.state.uploading === true &&
@@ -125,7 +132,7 @@ async function playAlarm(bool){
 
 async function uploadImageAsync(img) {
   if (Constants.isDevice) {
-    apiUrl = `http://ae68601b.ngrok.io`;
+    apiUrl = `http://647b2988.ngrok.io`;
   } else {
     apiUrl = `http://localhost:3000/`
   }

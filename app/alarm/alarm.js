@@ -22,7 +22,8 @@ class Alarm extends Component {
 
   static navigationOptions = {
     title: 'Set Alarm',
-    header: null
+    header: null,
+    tint: 'black'
   }
 
   increaseHour(){
@@ -65,13 +66,13 @@ class Alarm extends Component {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.alarm} >
+        <Text style={styles.appTitle}>Shower Alarm</Text>
         <View style={styles.alarmTime} >
           <TimeEdit
             time={this.state.hour}
             name='hour' increase={this.increaseHour}
             decrease={this.decrease}
           />
-          <Text> : </Text>
           <TimeEdit
             time={this.state.minute}
             name='minute'

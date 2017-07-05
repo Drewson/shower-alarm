@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'black'
+    backgroundColor: '#003366'
   },
   turnOff: {
     fontSize: 32,
@@ -62,14 +62,19 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     color: 'white'
   },
-  takePic: {
-
-  },
   takeText: {
     fontWeight: '200',
     textAlign: 'center',
     fontSize: 28,
     color: 'white',
+    borderWidth: 2,
+    padding: 20,
+    borderColor: 'white'
+  },
+  sawText: {
+    fontWeight: '200',
+    textAlign: 'center',
+    fontSize: 28,
     borderWidth: 2,
     padding: 20,
     borderColor: 'white'

@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-around',
     alignItems: 'center',
-    backgroundColor: 'black'
+    backgroundColor: '#003366'
   },
   alarmTime: {
     flexDirection: 'row',
@@ -47,5 +47,11 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 30,
     paddingTop: 5,
+  },
+  appTitle: {
+    fontSize: 50,
+    color: 'white',
+    fontWeight: '100',
+    marginTop: 75
   }
 });
